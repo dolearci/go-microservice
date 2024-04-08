@@ -32,7 +32,12 @@ func TestCreateAndGetUser(t *testing.T) {
 		t.Fatalf("Failed to create user: %v", err)
 	}
 
-	req, _ := http.NewRequest("GET", fmt.Sprintf("%s/1", server.URL), nil)
+	var createdUser model.User
+	if err := json.NewDecoder(resp.Body).Decode(&createdUser); err != nil {
+		t.Fatalf("Failed to decode response: %v", err)
+	}
+
+	req, _ := http.NewRequest("GET", fmt.Sprintf("%s/%d", server.URL, createdUser.ID), nil)
 	resp, err = http.DefaultClient.Do(req)
 	if err != nil || resp.StatusCode != http.StatusOK {
 		t.Fatalf("Failed to get user: %v", err)
