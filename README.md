@@ -28,6 +28,12 @@ Then you can run the service with the following command
 go run main.go
 ```
 
+or with built binary for MacOS system
+
+```shell
+./user-microservice
+```
+
 The service will start and listen on port 8080.
 
 
