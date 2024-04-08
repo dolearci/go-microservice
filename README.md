@@ -36,6 +36,11 @@ or with built binary for MacOS system
 
 The service will start and listen on port 8080.
 
+### Build binary
+You can build the binary for your operation system with the following command
+```shell
+go build -o user-microservice main.go
+```
 
 ## API Endpoints
 
