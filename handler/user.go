@@ -35,7 +35,7 @@ func (handler *UserHandler) CreateUser(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"status": "User created"})
+	c.JSON(http.StatusOK, user)
 }
 
 func (handler *UserHandler) GetUserByID(c *gin.Context) {
@@ -79,5 +79,5 @@ func (handler *UserHandler) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"status": "User updated"})
+	c.JSON(http.StatusOK, user)
 }
