@@ -22,3 +22,9 @@ func (repository *UserRepository) FindAll() ([]model.User, error) {
 func (repository *UserRepository) Create(user *model.User) error {
 	return repository.db.Create(&user).Error
 }
+
+func (repository *UserRepository) FindByID(id uint) (model.User, error) {
+	var user model.User
+	result := repository.db.First(&user, id)
+	return user, result.Error
+}
