@@ -28,3 +28,7 @@ func (repository *UserRepository) FindByID(id uint) (model.User, error) {
 	result := repository.db.First(&user, id)
 	return user, result.Error
 }
+
+func (repository *UserRepository) DeleteByID(id uint) error {
+	return repository.db.Delete(&model.User{}, id).Error
+}
