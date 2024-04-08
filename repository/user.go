@@ -36,3 +36,12 @@ func (repository *UserRepository) DeleteByID(id uint) error {
 func (repository *UserRepository) DeleteAll() error {
 	return repository.db.Where("id > ?", 0).Delete(&model.User{}).Error
 }
+
+func (repository *UserRepository) Update(id uint, user model.User) error {
+	var existingUser model.User
+	if err := repository.db.First(&existingUser, id).Error; err != nil {
+		return err
+	}
+
+	return repository.db.Model(&existingUser).Updates(user).Error
+}
