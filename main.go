@@ -15,7 +15,8 @@ func main() {
 	userRepository := repository.NewUserRepository(database)
 	userHandler := handlers.NewUserHandler(userRepository)
 
-	router.GET("/users", userHandler.GetAllUsers)
+	router.GET("/", userHandler.GetAllUsers)
+	router.POST("/save", userHandler.CreateUser)
 
 	if err := router.Run(":8080"); err != nil {
 		panic("Failed to start the server")
