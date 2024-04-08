@@ -32,3 +32,7 @@ func (repository *UserRepository) FindByID(id uint) (model.User, error) {
 func (repository *UserRepository) DeleteByID(id uint) error {
 	return repository.db.Delete(&model.User{}, id).Error
 }
+
+func (repository *UserRepository) DeleteAll() error {
+	return repository.db.Where("id > ?", 0).Delete(&model.User{}).Error
+}
