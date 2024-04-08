@@ -13,9 +13,12 @@ func NewUserRepository(db *gorm.DB) *UserRepository {
 	return &UserRepository{db: db}
 }
 
-// FindAll finds all users.
-func (r *UserRepository) FindAll() ([]model.User, error) {
+func (repository *UserRepository) FindAll() ([]model.User, error) {
 	var users []model.User
-	result := r.db.Find(&users)
+	result := repository.db.Find(&users)
 	return users, result.Error
+}
+
+func (repository *UserRepository) Create(user *model.User) error {
+	return repository.db.Create(&user).Error
 }
