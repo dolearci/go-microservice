@@ -16,6 +16,7 @@ func main() {
 	userHandler := handlers.NewUserHandler(userRepository)
 
 	router.GET("/", userHandler.GetAllUsers)
+	router.GET("/:id", userHandler.GetUserByID)
 	router.POST("/save", userHandler.CreateUser)
 
 	if err := router.Run(":8080"); err != nil {
