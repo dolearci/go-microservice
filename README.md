@@ -9,6 +9,11 @@ This User Microservice is a RESTful API developed with the Go programming langua
 
 ### Running the Service
 
+To run the service
+```shell
+docker-compose up --build
+```
+
 The service will start and listen on port 8080.
 
 ## API Endpoints
