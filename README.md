@@ -9,12 +9,27 @@ This User Microservice is a RESTful API developed with the Go programming langua
 
 ### Running the Service
 
-To run the service
+To run the service with docker-compose
 ```shell
 docker-compose up --build
 ```
+The service will start and listen on port 8080.
+
+
+To run the service without docker-compose
+Firstly you need to have a postgres database running on your local machine.
+
+```shell
+docker run --name mypostgres -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=user_microservice -p 5432:5432 -d postgres
+```
+
+Then you can run the service with the following command
+```shell
+go run main.go
+```
 
 The service will start and listen on port 8080.
+
 
 ## API Endpoints
 
