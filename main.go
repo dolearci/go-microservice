@@ -18,6 +18,7 @@ func main() {
 	router.GET("/", userHandler.GetAllUsers)
 	router.GET("/:id", userHandler.GetUserByID)
 	router.DELETE("/:id", userHandler.DeleteUserByID)
+	router.DELETE("/", userHandler.DeleteAllUsers)
 	router.POST("/save", userHandler.CreateUser)
 
 	if err := router.Run(":8080"); err != nil {
