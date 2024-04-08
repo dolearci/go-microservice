@@ -64,3 +64,20 @@ func (handler *UserHandler) DeleteAllUsers(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"status": "All users deleted"})
 }
+
+func (handler *UserHandler) UpdateUser(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	var user model.User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if err := handler.repo.Update(uint(id), user); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"status": "User updated"})
+}
