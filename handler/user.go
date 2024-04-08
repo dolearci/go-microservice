@@ -5,6 +5,7 @@ import (
 	"github.com/dolearci/go-microservice/repository"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 type UserHandler struct {
@@ -35,4 +36,14 @@ func (handler *UserHandler) CreateUser(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"status": "User created"})
+}
+
+func (handler *UserHandler) GetUserByID(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+	user, err := handler.repo.FindByID(uint(id))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, user)
 }
