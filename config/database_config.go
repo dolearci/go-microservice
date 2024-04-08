@@ -5,6 +5,7 @@ import (
 	"github.com/dolearci/go-microservice/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"os"
 )
 
 type DatabaseConfig struct {
@@ -15,9 +16,16 @@ type DatabaseConfig struct {
 	DBName   string
 }
 
+func getEnv(key, fallback string) string {
+	if value, exists := os.LookupEnv(key); exists {
+		return value
+	}
+	return fallback
+}
+
 func GetDatabaseConfig() DatabaseConfig {
 	return DatabaseConfig{
-		Host:     "localhost",
+		Host:     getEnv("DB_HOST", "localhost"),
 		Port:     5432,
 		User:     "user",
 		Password: "password",
