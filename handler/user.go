@@ -56,3 +56,11 @@ func (handler *UserHandler) DeleteUserByID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"status": "User deleted"})
 }
+
+func (handler *UserHandler) DeleteAllUsers(c *gin.Context) {
+	if err := handler.repo.DeleteAll(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"status": "All users deleted"})
+}
