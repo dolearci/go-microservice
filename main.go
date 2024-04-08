@@ -20,6 +20,7 @@ func main() {
 	router.DELETE("/:id", userHandler.DeleteUserByID)
 	router.DELETE("/", userHandler.DeleteAllUsers)
 	router.POST("/save", userHandler.CreateUser)
+	router.PUT("/:id", userHandler.UpdateUser)
 
 	if err := router.Run(":8080"); err != nil {
 		panic("Failed to start the server")
