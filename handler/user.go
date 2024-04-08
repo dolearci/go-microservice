@@ -50,10 +50,17 @@ func (handler *UserHandler) GetUserByID(c *gin.Context) {
 
 func (handler *UserHandler) DeleteUserByID(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
+
+	if _, err := handler.repo.FindByID(uint(id)); err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+
 	if err := handler.repo.DeleteByID(uint(id)); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{"status": "User deleted"})
 }
 
@@ -71,6 +78,11 @@ func (handler *UserHandler) UpdateUser(c *gin.Context) {
 	var user model.User
 	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if _, err := handler.repo.FindByID(uint(id)); err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
 
