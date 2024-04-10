@@ -1,6 +1,7 @@
 package model
 
 import (
+	"github.com/google/uuid"
 	"time"
 )
 
@@ -10,4 +11,5 @@ type User struct {
 	Name        string
 	Email       string `gorm:"uniqueIndex"`
 	DateOfBirth time.Time
+	ExternalId  uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();uniqueIndex" json:"id"`
 }

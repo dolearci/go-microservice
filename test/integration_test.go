@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/dolearci/go-microservice/config"
 	"github.com/dolearci/go-microservice/model"
+	"github.com/google/uuid"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -24,6 +25,7 @@ func TestCreateAndGetUser(t *testing.T) {
 		Name:        "Test User",
 		Email:       testEmail,
 		DateOfBirth: time.Now(),
+		ExternalId:  uuid.New(),
 	}
 
 	userJSON, _ := json.Marshal(user)
@@ -44,7 +46,7 @@ func TestCreateAndGetUser(t *testing.T) {
 	}
 
 	var fetchedUser model.User
-	if err := json.NewDecoder(resp.Body).Decode(&fetchedUser); err != nil || fetchedUser.ID != 1 {
+	if err := json.NewDecoder(resp.Body).Decode(&fetchedUser); err != nil || fetchedUser.ID != createdUser.ID {
 		t.Fatalf("User fetched does not match expected ID")
 	}
 }

@@ -43,6 +43,8 @@ func ConnectToDatabase() *gorm.DB {
 		panic("Connection to database failed")
 	}
 
+	_ = db.Exec("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"")
+
 	if err := db.AutoMigrate(&model.User{}); err != nil {
 		panic("Migration of User table failed")
 	}
