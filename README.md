@@ -55,7 +55,12 @@ Creates a new user.
 
 ```shell
 curl -X POST http://localhost:8080/save \
--d '{"name": "John Doe", "email": "john.doe@example.com", "date_of_birth": "1990-01-01"}'
+-d '{
+    "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "name": "some name",
+    "email": "email@email.com", 
+    "date_of_birth": "2020-01-01T12:12:34+00:00"
+}'
 ```
 
 ### Get User by ID
@@ -78,7 +83,12 @@ Updates an existing user.
 
 ```shell
 curl -X PUT http://localhost:8080/1 \
--d '{"name": "Jane Doe", "email": "jane.doe@example.com", "date_of_birth": "1991-02-01"}'
+-d '{
+    "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "name": "some name",
+    "email": "updatedemail@email.com", 
+    "date_of_birth": "2020-01-01T12:12:34+00:00"
+}'
 ```
 
 ### Delete User
