@@ -39,8 +39,7 @@ func (handler *UserHandler) CreateUser(c *gin.Context) {
 }
 
 func (handler *UserHandler) GetUserByID(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Param("id"))
-	user, err := handler.repo.FindByID(uint(id))
+	user, err := handler.repo.FindByID(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -51,7 +50,7 @@ func (handler *UserHandler) GetUserByID(c *gin.Context) {
 func (handler *UserHandler) DeleteUserByID(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	if _, err := handler.repo.FindByID(uint(id)); err != nil {
+	if _, err := handler.repo.FindByID(c.Param("id")); err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
@@ -81,7 +80,7 @@ func (handler *UserHandler) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	if _, err := handler.repo.FindByID(uint(id)); err != nil {
+	if _, err := handler.repo.FindByID(c.Param("id")); err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
